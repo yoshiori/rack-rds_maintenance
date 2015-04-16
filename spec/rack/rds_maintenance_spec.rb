@@ -35,7 +35,7 @@ describe Rack::RdsMaintenance do
       context "start maintenance" do
         it "call before_maintenance" do
           post "/rack_rds_maintenance",
-               '{"code" : "RDS-EVENT-0026"}', # TODO: 後で本当の通知見る
+               '{"code" : "RDS-EVENT-0026"}', # FIXME: real event
                "x-amz-sns-message-type" => "Notification"
           expect(last_response.status).to be 204
           expect(store[:rds]).to eq "start"
@@ -45,7 +45,7 @@ describe Rack::RdsMaintenance do
       context "finish maintenance" do
         it "call after_maintenance" do
           post "/rack_rds_maintenance",
-               '{"code" : "RDS-EVENT-0027"}', # TODO: 後で本当の通知見る
+               '{"code" : "RDS-EVENT-0027"}', # FIXME: real event
                "x-amz-sns-message-type" => "Notification"
           expect(last_response.status).to be 204
           expect(store[:rds]).to eq "finish"

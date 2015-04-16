@@ -32,16 +32,15 @@ module Rack
     end
 
     def subscribe(env)
-      body = JSON.parse(env["rack.input"].gets)
-      Net::HTTP.get(body["SubscribeURL"])
+      body_json = JSON.parse(env["rack.input"].gets)
+      Net::HTTP.get(body_json["SubscribeURL"])
     end
 
     def notification(env)
-      body = JSON.parse(env["rack.input"].gets)
-      case body["code"]
-      when "RDS-EVENT-0026"
+      body = env["rack.input"].gets
+      if body.include?("RDS-EVENT-0026") # FIXME: real event
         @options[:before_maintenance].call
-      when "RDS-EVENT-0027"
+      elsif body.include?("RDS-EVENT-0027") # FIXME:  real event
         @options[:after_maintenance].call
       end
     end

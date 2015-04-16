@@ -2,6 +2,8 @@
 
 Rack::RdsMaintenance is a receive Amazon RDS maintenance notification interface for rack applications.
 
+Auto subscribe for Amazon SNS.
+
 ## Installation
 
 Add this line to your application's Gemfile:
